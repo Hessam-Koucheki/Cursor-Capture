@@ -1,6 +1,6 @@
 from win32 import win32gui
 from datetime import datetime
-from time import localtime
+from time import localtime, sleep
 from os.path import dirname
 from os import makedirs
 
@@ -17,10 +17,8 @@ except:
 while 1:
     cur_min = localtime().tm_min
     with open(FILE_ADDR + str(cur_min) + '.txt', 'a') as cur_file:
-        if cur_min != localtime().tm_min:
-            cur_min = localtime().tm_min
         flags, hcursor, (x,y) = win32gui.GetCursorInfo()
         print(x, y)
-        cur_file.write(TIME+'\n')
-            
-flags, hcursor, (x,y) = win32gui.GetCursorInfo()
+        mouse_pos =  ' ' + str(x) + ' ' + str(y)
+        cur_file.write(TIME + '_' +str(localtime().tm_sec) + mouse_pos + '\n')
+        sleep(1)
