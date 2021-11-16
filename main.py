@@ -1,20 +1,23 @@
 from win32 import win32gui
 from datetime import datetime
-import time
+from time import localtime
 from os.path import dirname
 from os import makedirs
 
-TIME = str(time.localtime().tm_year) +'_'+ str(time.localtime().tm_mon) +'_'+ str(time.localtime().tm_mday) +'_'+ str(time.localtime().tm_hour) +'_'+ str(time.localtime().tm_min)
+TIME = str(localtime().tm_year) +'_'+ str(localtime().tm_mon) +'_'+ str(localtime().tm_mday) +'_'+ str(localtime().tm_hour)
 LOG_FILE_DIR = str(dirname(__file__)) + '\\log\\'
-FILE_ADDR = LOG_FILE_DIR + TIME + '.txt'
+FILE_ADDR = LOG_FILE_DIR + TIME + '_'
 print(FILE_ADDR)
 try:
-    open(FILE_ADDR, 'a')
+    f = open(FILE_ADDR + str(localtime().tm_min) + '.txt', 'a')
+    f.close()
 except:
     makedirs(LOG_FILE_DIR)
     
-with open(FILE_ADDR, 'a') as cur_file:
-    exit()
+with open(FILE_ADDR + str(localtime().tm_min) + '.txt', 'a') as cur_file:
+    
+    cur_file.write(TIME+'\n')
+
 while 1:
     flags, hcursor, (x,y) = win32gui.GetCursorInfo()
     print(x, y)
