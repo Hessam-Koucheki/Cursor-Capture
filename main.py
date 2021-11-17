@@ -9,17 +9,20 @@ TIME = str(localtime().tm_year) +'_'+ str(localtime().tm_mon) +'_'+ str(localtim
 LOG_FILE_DIR = str(dirname(__file__)) + '\\log\\'
 FILE_ADDR = LOG_FILE_DIR + TIME + '_'
 
+# Making Sure LOG Folder is created
 try:
     f = open(FILE_ADDR + str(localtime().tm_min) + '.txt', 'a')
     f.close()
     remove(FILE_ADDR + str(localtime().tm_min) + '.txt')
+# If not, Create a LOG Folder
 except:
     makedirs(LOG_FILE_DIR)
 
 SECOND_TO_CAPTURE = 10 # 10 MIN of recording mouse movements
 SECOND_TO_WAIT = 1 # 1 SECONDs wait before capture next mouse position
-CLEAR = 'cls'
+CLEAR = 'cls' # This Used to clear screen, if using Linux use "clear"
 
+# MAIN LOOP
 while 1:
     system(CLEAR)
     # Menu
@@ -37,6 +40,7 @@ while 1:
     # Capturing
     if choice == 1:
         system(CLEAR)
+        # Getting prefered Second to capture
         while 1:
             try:
                 SECOND_TO_CAPTURE = int(input('How many seconds you want to Capture?\n>>> '))
@@ -45,8 +49,9 @@ while 1:
                 sleep(1)
                 continue
             break
+        # Started to Capture 
         for i in range(SECOND_TO_CAPTURE):
-            cur_min = localtime().tm_min
+            cur_min = localtime().tm_min # store Current minute
             with open(FILE_ADDR + str(cur_min) + '.txt', 'a') as cur_file:
                 flags, hcursor, (x,y) = win32gui.GetCursorInfo()
                 print(x, y)
@@ -54,14 +59,16 @@ while 1:
                 cur_file.write(str(localtime().tm_sec) + mouse_pos + '\n')
                 sleep(SECOND_TO_WAIT)
         print('Recording is Finished!!')
-    # Break
+        
+    # Exit the program
     if choice == 3:
         print('Have a Happy Day!! :)')
         sleep(2)
         break
 
-    # Performing
-    if choice == 2 and listdir(path=LOG_FILE_DIR):
+    # Performing recorded mouse movement
+    if choice == 2 and listdir(path=LOG_FILE_DIR): # Check we have at least one record
+        # Getting a file name
         while 1:
             system(CLEAR)
             try:
@@ -80,10 +87,10 @@ while 1:
                     sleep(1)
                     continue
             break
-
+        
+        # Start Performing
         system(CLEAR)
-        print('Running Mouse Movements')
-        print(cur_file)
+        print('Running Mouse Movements of ',cur_file)
         with open(LOG_FILE_DIR + cur_file, 'r') as cur_file:
             lines = cur_file.readlines()
             for line in lines:
