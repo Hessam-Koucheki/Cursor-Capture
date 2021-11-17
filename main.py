@@ -19,7 +19,8 @@ except:
     makedirs(LOG_FILE_DIR)
 
 SECOND_TO_CAPTURE = 10 # 10 MIN of recording mouse movements
-SECOND_TO_WAIT = 1/50 # 1 SECONDs wait before capture next mouse position
+# 1 SECONDs wait before capture next mouse position
+SECOND_TO_WAIT = 1/50 # SETTING INTEGERES LARGER THAN 1 WILL MAKE THE APP FAIL!!!
 CLEAR = 'cls' # This Used to clear screen, if using Linux use "clear"
 
 # MAIN LOOP
