@@ -78,13 +78,16 @@ while 1:
 
         system(CLEAR)
         print('Running Mouse Movements')
-        with open(FILE_ADDR + str(cur_min) + '.txt', 'r') as cur_file:
+        print(cur_file)
+        with open(LOG_FILE_DIR + cur_file, 'r') as cur_file:
             lines = cur_file.readlines()
             for line in lines:
                 t, x, y = line.split()
                 print(t, x, y)
                 mouse.move(x,y)
                 sleep(SECOND_TO_WAIT)
+        print('Performing is Finished!!')
+        sleep(2)
     else:
         print('No Record history, Start a record first.!')
         sleep(2)
