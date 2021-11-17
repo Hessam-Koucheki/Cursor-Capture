@@ -24,11 +24,12 @@ while 1:
     system(CLEAR)
     # Menu
     choice = 123456789
-    while choice != 1 and choice != 2:
+    while choice != 1 and choice != 2 and choice != 3:
         print('Enter 1: Start Mouse Recording.')
         print('Enter 2: Start Mouse Performing.')
+        print('Enter 3: Exit the App')
         choice = int(input('>>> '))
-        if choice != 1 and choice != 2 and choice != 123456789:
+        if choice != 1 and choice != 2 and choice != 3 and choice != 123456789:
             print('Wrong Input!!')
             sleep(1)
             system(CLEAR)
@@ -53,9 +54,13 @@ while 1:
                 cur_file.write(str(localtime().tm_sec) + mouse_pos + '\n')
                 sleep(SECOND_TO_WAIT)
         print('Recording is Finished!!')
+    # Break
+    if choice == 3:
+        print('Have a Happy Day!! :)')
+        sleep(2)
+        break
 
     # Performing
-
     if choice == 2 and listdir(path=LOG_FILE_DIR):
         while 1:
             system(CLEAR)
